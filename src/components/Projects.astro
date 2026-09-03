@@ -1,0 +1,54 @@
+---
+// Projects component fetching data at build time!
+const githubUsername = 'vimi-tt';
+const pinnedReposNames = ['Flicker', 'Automato-Playground'];
+
+let repos: any[] = [];
+try {
+  const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=50`);
+  if(response.ok) {
+    repos = await response.json();
+  }
+} catch(e) {
+  console.error("Error fetching repos", e);
+}
+
+const validRepos = repos.filter((repo: any) => !repo.fork && !repo.message);
+const pinnedRepos = validRepos.filter((repo: any) => pinnedReposNames.includes(repo.name));
+const otherRepos = validRepos.filter((repo: any) => !pinnedReposNames.includes(repo.name));
+
+pinnedRepos.sort((a: any, b: any) => pinnedReposNames.indexOf(a.name) - pinnedReposNames.indexOf(b.name));
+const finalRepos = [...pinnedRepos, ...otherRepos].slice(0, 6);
+---
+
+<section id="projetos" class="section section-variant">
+  <div class="container">
+    <h2 class="section-title">Projetos Acadêmicos e Pessoais</h2>
+    <div class="projects-grid">
+      {finalRepos.length === 0 ? (
+        <p style="text-align: center; grid-column: 1 / -1;">Nenhum repositório público encontrado (ou limite da API atingido).</p>
+      ) : (
+        finalRepos.map((repo: any) => {
+          const isPinned = pinnedReposNames.includes(repo.name);
+          return (
+            <div class="card project-card">
+              <h3 style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                <span>{repo.name}</span>
+                {isPinned && <span class="material-symbols-rounded" style="font-size: 1.2rem; color: var(--sys-primary);" title="Fixado">push_pin</span>}
+              </h3>
+              <p>{repo.description || 'Sem descrição disponível.'}</p>
+              <div class="tags">
+                {repo.language && <span class="tag">{repo.language}</span>}
+              </div>
+              <div class="project-actions">
+                <a href={repo.html_url} target="_blank" class="btn btn-tonal">
+                  <span class="material-symbols-rounded">code</span> Ver Repositório
+                </a>
+              </div>
+            </div>
+          );
+        })
+      )}
+    </div>
+  </div>
+</section>
