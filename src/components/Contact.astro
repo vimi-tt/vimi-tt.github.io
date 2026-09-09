@@ -1,13 +1,116 @@
 ---
-// Contact component
+// Contact Component - High-Contrast Neo-Brutalist Transmission Terminal
+const email = "vitormirandacc@outlook.com";
+const github = "https://github.com/vimi-tt";
 ---
-<section id="contato" class="section section-variant">
-  <div class="container">
-    <h2 class="section-title">Contato</h2>
-    <div class="card contact-card">
-      <div class="contact-links">
-        <a href="mailto:vitormirandacc@outlook.com" class="btn btn-filled"><span class="material-symbols-rounded">mail</span> vitormirandacc@outlook.com</a>
+
+<section id="contato" class="relative py-20 md:py-28 bg-[#0F0F0F]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Painel de Contato de Alto Contraste -->
+    <div class="max-w-4xl mx-auto p-6 sm:p-10 md:p-12 border border-white/20 bg-[#0F0F0F] relative">
+      
+      <!-- Linha superior de status do terminal -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-8 border-b border-white/20 text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#BDB2FF]"></span>
+          <span class="text-[#BDB2FF] font-bold tracking-wider">SOCKET_ESTABLISHED</span>
+        </div>
+        <div class="flex items-center gap-3 text-white/50 text-[11px]">
+          <span>PROTOCOL: TCP/IP</span>
+          <span>&bull;</span>
+          <span>PORT: 443</span>
+          <span>&bull;</span>
+          <span>TLS 1.3</span>
+        </div>
       </div>
+
+      <!-- Tag do Canal de Comunicação -->
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-xs font-mono text-[#BDB2FF] uppercase tracking-widest">
+          // OPEN_COMMUNICATION_CHANNEL
+        </div>
+      </div>
+
+      <!-- Ações & Botões Magnéticos -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+        
+        <!-- Botão de Envio de E-mail Direto -->
+        <a 
+          href={`mailto:${email}`}
+          data-magnetic
+          class="w-full sm:w-auto px-7 py-3.5 bg-[#BDB2FF] hover:bg-[#a594fd] text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2.5"
+        >
+          <span class="material-symbols-rounded text-base">mail</span>
+          <span>ENVIAR_MENSAGEM</span>
+          <span>&rarr;</span>
+        </a>
+
+        <!-- Botão Magnético de Copiar E-mail -->
+        <button 
+          id="copy-email-btn"
+          data-email={email}
+          data-magnetic
+          class="w-full sm:w-auto px-6 py-3.5 border border-white/30 hover:border-[#BDB2FF] hover:text-[#BDB2FF] text-[#F3F3F3] font-mono text-xs sm:text-sm font-medium tracking-wider uppercase transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          title="Copiar e-mail para a área de transferência"
+        >
+          <span class="material-symbols-rounded text-base text-white/60" id="copy-icon">content_copy</span>
+          <span id="copy-text">COPIAR_ENDEREÇO</span>
+        </button>
+
+        <!-- Botão GitHub -->
+        <a 
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-magnetic
+          class="w-full sm:w-auto px-6 py-3.5 border border-white/30 hover:border-[#BDB2FF] hover:text-[#BDB2FF] text-[#F3F3F3] font-mono text-xs sm:text-sm font-medium tracking-wider uppercase transition-colors flex items-center justify-center gap-2"
+        >
+          <svg class="w-4 h-4 fill-current text-white/80" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span>GITHUB</span>
+        </a>
+
+      </div>
+
+      <!-- Rodapé do Terminal de Contato -->
+      <div class="mt-10 pt-4 border-t border-white/20 flex flex-wrap items-center justify-between text-xs font-mono text-white/50">
+        <span class="text-white/80 flex items-center gap-1.5">
+          <span class="text-[#BDB2FF] font-bold">&gt;</span> vitormirandacc@outlook.com
+        </span>
+        <span>PGP / SSH READY</span>
+      </div>
+
     </div>
   </div>
 </section>
+
+<script>
+  const copyBtn = document.getElementById('copy-email-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email');
+      const copyText = document.getElementById('copy-text');
+      const copyIcon = document.getElementById('copy-icon');
+      
+      if (email && copyText && copyIcon) {
+        try {
+          await navigator.clipboard.writeText(email);
+          const originalText = copyText.textContent;
+          copyText.textContent = "COPIADO_PARA_CLIPBOARD!";
+          copyIcon.textContent = "check_circle";
+          copyBtn.classList.add('border-[#BDB2FF]', 'text-[#BDB2FF]');
+
+          setTimeout(() => {
+            copyText.textContent = originalText;
+            copyIcon.textContent = "content_copy";
+            copyBtn.classList.remove('border-[#BDB2FF]', 'text-[#BDB2FF]');
+          }, 2500);
+        } catch (err) {
+          console.error("Erro ao copiar:", err);
+        }
+      }
+    });
+  }
+</script>

@@ -7,17 +7,29 @@ import Skills from '../components/Skills.astro';
 import Contact from '../components/Contact.astro';
 ---
 
-<Layout title="Vitor Miranda | Dev">
+<Layout title="José Vitor Diniz Miranda | Developer">
+  <!-- Navbar / Cabeçalho -->
   <Header />
-  <main>
+  
+  <!-- Conteúdo em Rolagem Vertical Contínua -->
+  <main class="flex-grow">
     <Hero />
     <Projects />
     <Skills />
     <Contact />
   </main>
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 vimi</p>
+
+  <!-- Rodapé de Alto Contraste -->
+  <footer class="w-full border-t border-white/20 bg-[#0F0F0F] py-8 font-mono text-xs text-white/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-white/80">
+        <span class="w-2 h-2 rounded-full bg-[#BDB2FF]"></span>
+        <span class="font-bold text-white uppercase tracking-wider">vimi-tt</span>
+      </div>
+
+      <div class="text-[11px] text-white/50 tracking-wider uppercase">
+        &copy; {new Date().getFullYear()} Vitor Miranda
+      </div>
     </div>
   </footer>
 </Layout>

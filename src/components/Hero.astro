@@ -1,18 +1,125 @@
 ---
-// Hero component
+// Hero Section - High Contrast Neo-Brutalist Layout with Hybrid Typography
 ---
-<section id="hero" class="hero">
-  <div class="container hero-content">
-    <div class="hero-text">
-      <h1>José <span class="gradient-text">Vitor</span> Diniz <span class="gradient-text">Miranda</span></h1>
-      <p>Aluno de Ciência da Computação pela UFCG - Campus Sede.</p>
-      <div class="hero-actions">
-        <a href="#projetos" class="btn btn-filled">Ver Projetos</a>
-        <a href="https://github.com/vimi-tt" target="_blank" class="btn btn-outlined">GitHub</a>
+
+<section id="hero" class="relative pt-16 pb-16 md:pt-24 md:pb-24 border-b border-white/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Tipografia Híbrida (Títulos Grandes) -->
+    <div class="mb-10 sm:mb-14">
+      <div class="flex flex-wrap items-baseline gap-x-3 sm:gap-x-5 gap-y-1 font-display tracking-tight leading-none mb-3">
+        <span class="font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[#F3F3F3]">
+          BUILDING
+        </span>
+        <span class="font-serif-italic text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-[#BDB2FF] self-end normal-case font-normal">
+          random digital
+        </span>
+        <span class="font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-stroke-accent">
+          STUFF.
+        </span>
       </div>
+
+      <h1 class="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#F3F3F3] uppercase tracking-tight mt-4">
+        José Vitor Diniz Miranda
+      </h1>
+
+      <p class="text-sm sm:text-base md:text-lg font-mono text-[#F3F3F3]/90 mt-2 max-w-2xl leading-relaxed">
+        Graduando em Ciência da Computação pela UFCG (Campus Sede).
+      </p>
     </div>
-    <div class="hero-image">
-      <img src="https://github.com/vimi-tt.png" alt="Foto de perfil de Vimi (GitHub)">
+
+    <!-- Grade Principal: Bloco de Identidade + Linha Ondulada + Stack Tags -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Bloco de Identidade (Avatar com Borda Simples de 2px e Linha Ondulada Lateral) -->
+      <div class="lg:col-span-5 flex items-stretch gap-4 sm:gap-6">
+        
+        <!-- Container do Avatar -->
+        <div class="flex-1 flex flex-col justify-between p-6 bg-[#0F0F0F] border border-white/20">
+          <div class="relative w-full aspect-square max-w-[280px] mx-auto mb-6 border-2 border-[#BDB2FF] overflow-hidden bg-black">
+            <img 
+              src="https://github.com/vimi-tt.png" 
+              alt="José Vitor Diniz Miranda" 
+              class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-300"
+              loading="eager"
+            />
+          </div>
+
+          <div class="border-t border-white/20 pt-4 flex items-center justify-between text-xs font-mono">
+            <span class="text-[#BDB2FF] font-bold">@vimi-tt</span>
+            <span class="text-white/60">UFCG / CG-PB</span>
+          </div>
+        </div>
+
+        <!-- Linha Ondulada Lateral Renderizada no Eixo Y -->
+        <div class="w-4 sm:w-6 wavy-line-border opacity-90 shrink-0 self-stretch" aria-hidden="true"></div>
+      </div>
+
+      <!-- Tags de Stack / Identidade (Caixas Empilhadas em CSS Grid) -->
+      <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
+        
+        <div class="space-y-2.5">
+          <div class="text-xs font-mono text-[#BDB2FF] uppercase tracking-widest mb-1">
+            // IDENTITY_&amp;_STACK_MATRIX
+          </div>
+
+          <!-- Caixa 1 -->
+          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
+            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">RUST</span>
+            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">MEMORY_SAFE / SYSTEMS</span>
+          </div>
+
+          <!-- Caixa 2 -->
+          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
+            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">C / C#</span>
+            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">POSIX / LOW_LEVEL</span>
+          </div>
+
+          <!-- Caixa 3 -->
+          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
+            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">HASKELL</span>
+            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">FUNCTIONAL_PURE</span>
+          </div>
+
+          <!-- Caixa 4 -->
+          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
+            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">UGRAD CS</span>
+            <span class="col-span-6 font-mono text-xs text-right text-[#BDB2FF] uppercase font-bold">UFCG CAMPUS SEDE</span>
+          </div>
+
+          <!-- Caixa 5 -->
+          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
+            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">LINUX ENV</span>
+            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">TERMINAL / BASH / ZED</span>
+          </div>
+        </div>
+
+        <!-- Botões de Ação de Alto Contraste -->
+        <div class="pt-4 flex flex-wrap items-center gap-4">
+          <a 
+            href="#projetos" 
+            data-magnetic
+            class="px-6 py-3 bg-[#BDB2FF] hover:bg-[#a594fd] text-black font-mono font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors inline-flex items-center gap-2"
+          >
+            <span>VER_PROJETOS</span>
+            <span>&darr;</span>
+          </a>
+
+          <a 
+            href="https://github.com/vimi-tt" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            data-magnetic
+            class="px-6 py-3 border border-white/30 hover:border-[#BDB2FF] hover:text-[#BDB2FF] text-[#F3F3F3] font-mono font-medium text-xs sm:text-sm tracking-wider uppercase transition-colors inline-flex items-center gap-2"
+          >
+            <span>GITHUB_PROFILE</span>
+            <span>&nearr;</span>
+          </a>
+        </div>
+
+      </div>
+
     </div>
+
   </div>
 </section>

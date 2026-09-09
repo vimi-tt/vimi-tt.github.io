@@ -1,20 +1,115 @@
 ---
-// Skills component
+// Skills Component - High-Contrast Neo-Brutalist Matrix
 ---
-<section id="habilidades" class="section">
-  <div class="container">
-    <h2 class="section-title">Habilidades Técnicas</h2>
-    <div class="skills-grid">
-      <div class="card skill-card">
-        <span class="material-symbols-rounded skill-icon">terminal</span>
-        <h3>Linguagens</h3>
-        <p>Java, Python, Rust, Haskell, C#.</p>
+
+<section id="habilidades" class="relative py-20 md:py-28 border-b border-white/20 bg-[#0F0F0F]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Cabeçalho da Seção -->
+    <div class="mb-12 md:mb-16">
+      <div class="flex items-center gap-3 text-xs font-mono text-[#BDB2FF] uppercase tracking-widest mb-2">
+        <span class="w-2 h-2 rounded-full bg-[#BDB2FF]"></span>
+        <span>// TECH_STACK</span>
       </div>
-      <div class="card skill-card">
-        <span class="material-symbols-rounded skill-icon">build</span>
-        <h3>Ferramentas</h3>
-        <p>Git, GitHub, Linux, Zed, Pandas, Matplotlib.</p>
+      <h2 class="font-display font-black text-4xl sm:text-6xl md:text-7xl text-[#F3F3F3] tracking-tight uppercase">
+        Matriz de Competências
+      </h2>
+    </div>
+
+    <!-- Grid de Habilidades: 2 Cartões Principais de Alto Contraste -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
+      
+      <!-- Card 1: Linguagens de Programação (Col 7) -->
+      <div class="md:col-span-7 p-6 sm:p-8 bg-[#0F0F0F] border border-white/20 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/20 text-xs font-mono text-white/60">
+            <span class="text-[#BDB2FF] flex items-center gap-2 font-bold">
+              <span class="material-symbols-rounded text-sm">code</span>
+              COMPILER_&amp;_LANGUAGES
+            </span>
+            <span>STATIC / STRONG</span>
+          </div>
+
+          <h3 class="font-display font-bold text-2xl sm:text-3xl text-white mb-6 uppercase">
+            Linguagens de Programação
+          </h3>
+
+          <!-- Grid de Linguagens com Chips Sólidos -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="p-4 border border-white/20 bg-black/40 hover:border-[#BDB2FF] transition-colors">
+              <div class="flex items-center justify-between font-mono text-xs">
+                <span class="font-bold text-white text-sm">Rust</span>
+                <span class="text-[10px] text-[#BDB2FF] border border-[#BDB2FF]/40 px-1.5 py-0.5 uppercase">Memory Safe</span>
+              </div>
+            </div>
+
+            <div class="p-4 border border-white/20 bg-black/40 hover:border-[#BDB2FF] transition-colors">
+              <div class="flex items-center justify-between font-mono text-xs">
+                <span class="font-bold text-white text-sm">C / C#</span>
+                <span class="text-[10px] text-white/70 border border-white/30 px-1.5 py-0.5 uppercase">POSIX / Systems</span>
+              </div>
+            </div>
+
+            <div class="p-4 border border-white/20 bg-black/40 hover:border-[#BDB2FF] transition-colors">
+              <div class="flex items-center justify-between font-mono text-xs">
+                <span class="font-bold text-white text-sm">Haskell</span>
+                <span class="text-[10px] text-white/70 border border-white/30 px-1.5 py-0.5 uppercase">Functional Pure</span>
+              </div>
+            </div>
+
+            <div class="p-4 border border-white/20 bg-black/40 hover:border-[#BDB2FF] transition-colors">
+              <div class="flex items-center justify-between font-mono text-xs">
+                <span class="font-bold text-white text-sm">Java &amp; Python</span>
+                <span class="text-[10px] text-white/70 border border-white/30 px-1.5 py-0.5 uppercase">Data &amp; Enterprise</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-white/20 flex items-center justify-between text-xs font-mono text-white/50">
+          <span>PARADIGMS: Imperative &bull; Functional &bull; OOP</span>
+          <span class="text-[#BDB2FF]">GCC / CLANG / RUSTC</span>
+        </div>
       </div>
+
+      <!-- Card 2: Ambiente Linux & Toolchain (Col 5) -->
+      <div class="md:col-span-5 p-6 sm:p-8 bg-[#0F0F0F] border border-white/20 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/20 text-xs font-mono text-white/60">
+            <span class="text-[#BDB2FF] flex items-center gap-2 font-bold">
+              <span class="material-symbols-rounded text-sm">terminal</span>
+              ENVIRONMENT_&amp;_CLI
+            </span>
+            <span>HOST: LINUX</span>
+          </div>
+
+          <h3 class="font-display font-bold text-2xl sm:text-3xl text-white mb-6 uppercase">
+            Ambiente &amp; Ferramentas
+          </h3>
+
+          <!-- Shell Terminal Visual Mock -->
+          <div class="bg-black border border-white/20 p-4 font-mono text-xs space-y-2 text-[#F3F3F3]">
+            <div class="text-white/40 flex items-center gap-2 pb-2 border-b border-white/10">
+              <span class="w-2 h-2 rounded-full bg-white/40"></span>
+              <span class="w-2 h-2 rounded-full bg-white/40"></span>
+              <span class="w-2 h-2 rounded-full bg-white/40"></span>
+              <span class="text-[11px] ml-1">vimi@arch-box:~</span>
+            </div>
+            <div><span class="text-[#BDB2FF] font-bold">$</span> uname -srm</div>
+            <div class="text-white/60 pl-3">Linux 6.x.x x86_64 GNU/Linux</div>
+            <div><span class="text-[#BDB2FF] font-bold">$</span> cat /etc/dev_tools.conf</div>
+            <div class="text-[#F3F3F3] pl-3">&gt; Editor: Zed / Neovim</div>
+            <div class="text-[#F3F3F3] pl-3">&gt; VCS: Git &amp; GitHub Actions</div>
+            <div class="text-[#F3F3F3] pl-3">&gt; Data: Pandas, Matplotlib</div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-white/20 flex items-center justify-between text-xs font-mono text-white/50">
+          <span>SHELL: Bash / Zsh</span>
+          <span class="text-[#BDB2FF]">100% UNIX WORKFLOW</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
