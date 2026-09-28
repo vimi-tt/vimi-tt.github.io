@@ -7,13 +7,13 @@ const visibleReposNames = ['Flicker', 'Automato-Playground'];
 const cardColors = [
   '#6B44FF', // Roxo Neon
   '#00B4D8', // Azul Turquesa
-  '#2A6F97', // Azul Marinho Claro
   '#E63946', // Vermelho Vibrante
+  '#2A6F97', // Azul Marinho Claro
   '#059669', // Verde Esmeralda
   '#7209B7'  // Violeta Intenso
 ];
 
-// Dados de fallback ricos
+// Dados de fallback para repositórios do GitHub
 const fallbackRepos = [
   {
     name: 'Flicker',
@@ -22,7 +22,8 @@ const fallbackRepos = [
     html_url: 'https://github.com/vimi-tt/Flicker',
     stargazers_count: 0,
     forks_count: 0,
-    archived: false
+    archived: false,
+    button_text: 'VER_REPOSITÓRIO'
   },
   {
     name: 'Automato-Playground',
@@ -31,7 +32,30 @@ const fallbackRepos = [
     html_url: 'https://github.com/vimi-tt/Automato-Playground',
     stargazers_count: 0,
     forks_count: 0,
-    archived: false
+    archived: false,
+    button_text: 'VER_REPOSITÓRIO'
+  }
+];
+
+// Projetos externos adicionais (não restritos à API do GitHub)
+const externalProjects = [
+  {
+    name: 'Null:Gemini',
+    description: 'Boas vindas as Terras Semfim! Embarque em uma aventura com Kuati no mundo do espelho em busca de respostas para o seu aprisionamento nessa dimensão caótica de Lugarnenhum.',
+    language: 'Unity',
+    html_url: 'https://dobled08.itch.io/nullgemini',
+    button_text: 'JOGAR_NO_ITCH.IO',
+    archived: false,
+    badge: 'GAME DEV'
+  },
+  {
+    name: 'Guia de PPC - UFCG',
+    description: 'Guia de PPC para o curso de Ciência da Computação - UFCG. Consulte ementas, pré-requisitos, créditos e bibliografias atualizadas.',
+    language: 'Web / UFCG',
+    html_url: 'https://guiappc.vercel.app/',
+    button_text: 'ACESSAR_GUIA',
+    archived: false,
+    badge: 'WEB APP'
   }
 ];
 
@@ -48,19 +72,26 @@ try {
 }
 
 const validRepos = Array.isArray(repos) ? repos.filter((repo: any) => !repo.fork && !repo.message) : [];
-let finalRepos: any[] = [];
+let githubRepos: any[] = [];
 
 if (validRepos.length > 0) {
-  finalRepos = visibleReposNames
+  githubRepos = visibleReposNames
     .map((name) => {
       const fromApi = validRepos.find((repo: any) => repo.name.toLowerCase() === name.toLowerCase());
-      if (fromApi) return fromApi;
+      if (fromApi) {
+        return {
+          ...fromApi,
+          button_text: 'VER_REPOSITÓRIO'
+        };
+      }
       return fallbackRepos.find((repo) => repo.name.toLowerCase() === name.toLowerCase());
     })
     .filter(Boolean);
 } else {
-  finalRepos = fallbackRepos;
+  githubRepos = fallbackRepos;
 }
+
+const allProjects = [...githubRepos, ...externalProjects];
 ---
 
 <section id="projetos" class="relative w-full border-b border-white/20">
@@ -78,9 +109,9 @@ if (validRepos.length > 0) {
 
   <!-- Container de Projetos Edge-to-Edge (width: 100%; flex-direction: column; padding-inline: 0px) -->
   <div class="flex flex-col w-full">
-    {finalRepos.map((repo: any, index: number) => {
+    {allProjects.map((project: any, index: number) => {
       const bgColor = cardColors[index % cardColors.length];
-      const isArchived = Boolean(repo.archived);
+      const isArchived = Boolean(project.archived);
 
       return (
         <article 
@@ -92,7 +123,7 @@ if (validRepos.length > 0) {
             <!-- Topo do Cartão: Tag da Linguagem no canto superior esquerdo -->
             <div class="flex items-center justify-between gap-4 mb-6">
               <span class="font-mono text-xs sm:text-sm font-bold tracking-wider uppercase px-3 py-1 bg-black text-white border border-white/20">
-                {repo.language || 'SYS / ALGO'}
+                {project.language || 'SYS / ALGO'}
               </span>
 
               <span class="font-mono text-xs text-white/80 font-semibold tracking-widest uppercase">
@@ -104,17 +135,17 @@ if (validRepos.length > 0) {
             <div class="max-w-3xl my-auto">
               <h3 class="font-display font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight text-white mb-4">
                 <a 
-                  href={repo.html_url} 
+                  href={project.html_url} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   class="hover:underline underline-offset-8 transition-all"
                 >
-                  {repo.name}
+                  {project.name}
                 </a>
               </h3>
 
               <p class="font-mono text-sm sm:text-base md:text-lg text-white/90 leading-relaxed font-normal">
-                {repo.description || 'Repositório de código focado em engenharia de sistemas, performance e algoritmos.'}
+                {project.description || 'Projeto focado em engenharia de sistemas, performance e desenvolvimento.'}
               </p>
             </div>
 
@@ -123,10 +154,16 @@ if (validRepos.length > 0) {
               
               <!-- Caixas Translúcidas para Métricas -->
               <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                {repo.stargazers_count !== undefined && (
+                {project.stargazers_count !== undefined && (
                   <div class="px-3 py-1.5 rounded-none font-mono text-xs sm:text-sm tracking-wider flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/20">
                     <span class="material-symbols-rounded text-sm">star</span>
-                    <span>{repo.stargazers_count}</span>
+                    <span>{project.stargazers_count}</span>
+                  </div>
+                )}
+
+                {project.badge && (
+                  <div class="px-3 py-1.5 rounded-none font-mono text-xs sm:text-sm tracking-wider bg-white/10 backdrop-blur-md border border-white/20">
+                    <span class="text-white font-bold">{project.badge}</span>
                   </div>
                 )}
 
@@ -140,15 +177,15 @@ if (validRepos.length > 0) {
                 </div>
               </div>
 
-              <!-- Link direto de Ver Código -->
+              <!-- Link direto de Ação -->
               <a 
-                href={repo.html_url} 
+                href={project.html_url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 data-magnetic
                 class="px-4 py-2 bg-black hover:bg-black/80 text-white font-mono text-xs sm:text-sm font-bold tracking-wider uppercase border border-white/20 transition-colors inline-flex items-center gap-1.5"
               >
-                <span>VER_REPOSITÓRIO</span>
+                <span>{project.button_text || 'ACESSAR_PROJETO'}</span>
                 <span>&nearr;</span>
               </a>
 
@@ -156,7 +193,7 @@ if (validRepos.length > 0) {
 
           </div>
 
-          <!-- Micro-interação Visual no canto inferior direito (position: absolute; right: 20px; bottom: 0;) -->
+          <!-- Micro-interação Visual no canto inferior direito -->
           <div 
             class="absolute right-4 sm:right-10 bottom-0 pointer-events-none select-none opacity-20 hover:opacity-30 transition-opacity z-0"
             aria-hidden="true"
@@ -186,7 +223,7 @@ if (validRepos.length > 0) {
     <a 
       href={`https://github.com/${githubUsername}?tab=repositories`} 
       target="_blank" 
-      rel="noopener noreferrer" 
+      rel="noopener noreferrer"
       data-magnetic
       class="inline-flex items-center gap-3 px-8 py-4 bg-transparent border-2 border-white/30 hover:border-[#BDB2FF] hover:text-[#BDB2FF] text-[#F3F3F3] font-mono text-xs sm:text-sm font-bold tracking-widest uppercase transition-colors"
     >
