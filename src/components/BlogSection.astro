@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+
+let allPosts: any[] = [];
+try {
+  allPosts = await getCollection('blog', ({ data }) => !data.draft);
+} catch (e) {
+  allPosts = [];
+}
+
+// Fallback robusto via Vite glob caso o dev server não tenha reiniciado a Content Layer
+if (!allPosts || allPosts.length === 0) {
+  const globPosts = import.meta.glob('../content/blog/*.{md,mdx}', { eager: true });
+  allPosts = Object.entries(globPosts).map(([path, mod]: [string, any]) => {
+    const slug = path.split('/').pop()?.replace(/\.(md|mdx)$/, '').toLowerCase();
+    const frontmatter = mod.frontmatter || {};
+    return {
+      id: slug,
+      slug: slug,
+      data: {
+        title: frontmatter.title || 'Sem Título',
+        description: frontmatter.description || '',
+        pubDate: frontmatter.pubDate ? new Date(frontmatter.pubDate) : new Date(),
+        tags: frontmatter.tags || [],
+        draft: frontmatter.draft || false,
+      },
+    };
+  }).filter(p => !p.data.draft);
+}
+
+allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const recentPosts = allPosts.slice(0, 2);
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).toUpperCase();
+};
+---
+
+{recentPosts.length > 0 && (
+  <section id="blog" class="relative w-full border-b border-white/20 bg-[#0F0F0F] py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Cabeçalho da Seção -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-12 border-b border-white/20">
+        <div>
+          <div class="flex items-center gap-3 text-xs font-mono text-[#BDB2FF] uppercase tracking-widest mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#BDB2FF]"></span>
+            <span>// WRITINGS_&_NOTES</span>
+          </div>
+          <h2 class="font-display font-black text-4xl sm:text-6xl md:text-7xl text-[#F3F3F3] tracking-tight uppercase">
+            BLOG
+          </h2>
+        </div>
+
+        <a 
+          href="/blog" 
+          data-magnetic
+          class="inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-bold uppercase text-[#BDB2FF] hover:text-white transition-colors self-start sm:self-auto"
+        >
+          <span>VER_TODAS_AS_PUBLICAÇÕES</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+
+      <!-- Grade de Posts Recentes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 pt-10">
+        {recentPosts.map((post, index) => (
+          <article class="p-6 sm:p-8 bg-black/40 border border-white/20 hover:border-[#BDB2FF] transition-all duration-200 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-3 text-xs font-mono text-white/60 mb-4">
+                <span class="text-[#BDB2FF] font-bold">#{String(index + 1).padStart(2, '0')}</span>
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
+              </div>
+
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-[#F3F3F3] group-hover:text-[#BDB2FF] transition-colors mb-3">
+                <a href={`/blog/${post.id || post.slug}`}>
+                  {post.data.title}
+                </a>
+              </h3>
+
+              <p class="font-mono text-xs sm:text-sm text-white/70 leading-relaxed mb-6 line-clamp-3">
+                {post.data.description}
+              </p>
+            </div>
+
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                {post.data.tags.map((tag: string) => (
+                  <span class="px-2 py-0.5 text-[10px] font-mono uppercase bg-white/5 border border-white/10 text-white/70">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <a 
+                  href={`/blog/${post.id || post.slug}`} 
+                  data-magnetic
+                  class="font-mono text-xs font-bold uppercase text-[#BDB2FF] hover:text-white transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>LER_POSTAGEM</span>
+                  <span>&nearr;</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

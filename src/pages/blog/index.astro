@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+let posts: any[] = [];
+try {
+  posts = await getCollection('blog', ({ data }) => !data.draft);
+} catch (e) {
+  posts = [];
+}
+
+// Fallback robusto via Vite glob caso o dev server não tenha reiniciado a Content Layer
+if (!posts || posts.length === 0) {
+  const globPosts = import.meta.glob('../../content/blog/*.{md,mdx}', { eager: true });
+  posts = Object.entries(globPosts).map(([path, mod]: [string, any]) => {
+    const slug = path.split('/').pop()?.replace(/\.(md|mdx)$/, '').toLowerCase();
+    const frontmatter = mod.frontmatter || {};
+    return {
+      id: slug,
+      slug: slug,
+      data: {
+        title: frontmatter.title || 'Sem Título',
+        description: frontmatter.description || '',
+        pubDate: frontmatter.pubDate ? new Date(frontmatter.pubDate) : new Date(),
+        tags: frontmatter.tags || [],
+        draft: frontmatter.draft || false,
+      },
+      Content: mod.default,
+    };
+  }).filter(p => !p.data.draft);
+}
+
+posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).toUpperCase();
+};
+---
+
+<Layout title="Blog & Notas Técnicas | José Vitor Diniz Miranda" description="Artigos e notas de engenharia por Vitor Miranda.">
+  <Header />
+
+  <main class="flex-grow">
+    <!-- Cabeçalho da Página de Blog (Sem subtítulo) -->
+    <section class="border-b border-white/20 pt-16 pb-10 bg-[#0F0F0F]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex items-center gap-3 text-xs font-mono text-[#BDB2FF] uppercase tracking-widest mb-2">
+          <span class="w-2 h-2 rounded-full bg-[#BDB2FF]"></span>
+          <span>// WRITINGS_&_SYSTEM_NOTES</span>
+        </div>
+
+        <h1 class="font-display font-black text-4xl sm:text-6xl md:text-7xl text-[#F3F3F3] tracking-tight uppercase">
+          BLOG
+        </h1>
+      </div>
+    </section>
+
+    <!-- Lista de Postagens -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      {posts.length === 0 ? (
+        <div class="p-8 sm:p-12 border border-white/20 text-center font-mono text-white/60">
+          Nenhuma publicação encontrada no momento.
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 gap-6 sm:gap-8">
+          {posts.map((post, index) => (
+            <article class="p-6 sm:p-8 md:p-10 bg-[#0F0F0F] border border-white/20 hover:border-[#BDB2FF] transition-all duration-200 group">
+              <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-white/60 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-[#BDB2FF] font-bold">#{String(index + 1).padStart(2, '0')}</span>
+                  <span>&bull;</span>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  {post.data.tags.map(tag => (
+                    <span class="px-2 py-0.5 text-[11px] font-mono uppercase bg-white/5 border border-white/10 text-white/80">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <h2 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-[#F3F3F3] group-hover:text-[#BDB2FF] transition-colors mb-3">
+                <a href={`/blog/${post.id || post.slug}`} class="focus:outline-none">
+                  {post.data.title}
+                </a>
+              </h2>
+
+              <p class="font-mono text-sm sm:text-base text-white/80 leading-relaxed max-w-4xl mb-6">
+                {post.data.description}
+              </p>
+
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <a 
+                  href={`/blog/${post.id || post.slug}`} 
+                  data-magnetic
+                  class="inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-bold uppercase text-[#BDB2FF] hover:text-white transition-colors"
+                >
+                  <span>LER_ARTIGO</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+  </main>
+
+  <footer class="w-full border-t border-white/20 bg-[#0F0F0F] py-8 font-mono text-xs text-white/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-white/80">
+        <span class="w-2 h-2 rounded-full bg-[#BDB2FF]"></span>
+        <span class="font-bold text-white uppercase tracking-wider">vimi-tt</span>
+      </div>
+
+      <div class="text-[11px] text-white/50 tracking-wider uppercase">
+        &copy; {new Date().getFullYear()} Vitor Miranda
+      </div>
+    </div>
+  </footer>
+</Layout>

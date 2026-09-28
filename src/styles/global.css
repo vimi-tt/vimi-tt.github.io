@@ -153,3 +153,147 @@
 #cursor-ring.cursor-clicking {
   transform: scale(0.85);
 }
+
+/* Estilos de Tipografia para Conteúdo Markdown do Blog */
+.markdown-content {
+  color: rgba(243, 243, 243, 0.9);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #F3F3F3;
+  letter-spacing: -0.02em;
+}
+
+.markdown-content h1 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
+}
+
+.markdown-content h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #BDB2FF;
+}
+
+.markdown-content p {
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content a {
+  color: #BDB2FF;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.15s ease;
+}
+
+.markdown-content a:hover {
+  color: #FFFFFF;
+}
+
+.markdown-content strong {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.markdown-content blockquote {
+  border-left: 3px solid #BDB2FF;
+  background-color: rgba(189, 178, 255, 0.04);
+  padding: 0.85rem 1.25rem;
+  margin: 1.75rem 0;
+  font-style: italic;
+  color: rgba(243, 243, 243, 0.85);
+}
+
+.markdown-content code:not(pre code) {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875em;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.15rem 0.4rem;
+  color: #BDB2FF;
+}
+
+.markdown-content pre {
+  background-color: #050505 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.markdown-content pre code {
+  background-color: transparent !important;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.markdown-content hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 2.5rem 0;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.875rem;
+}
+
+.markdown-content th {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 700;
+  color: #BDB2FF;
+}
+
+.markdown-content td {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.75rem;
+  color: rgba(243, 243, 243, 0.85);
+}

@@ -1,7 +1,7 @@
 ---
 // Projects Component - Edge-to-Edge Full Width Saturated Cards
 const githubUsername = 'vimi-tt';
-const pinnedReposNames = ['Flicker', 'Automato-Playground'];
+const visibleReposNames = ['Flicker', 'Automato-Playground'];
 
 // Paleta de Cores Sólidas e Contrastantes para os Cartões
 const cardColors = [
@@ -20,7 +20,7 @@ const fallbackRepos = [
     description: 'Utilitário de linha de comando e processamento de alta performance para ambientes Linux e criação segura de mídias bootáveis.',
     language: 'Rust',
     html_url: 'https://github.com/vimi-tt/Flicker',
-    stargazers_count: 3,
+    stargazers_count: 0,
     forks_count: 0,
     archived: false
   },
@@ -29,16 +29,7 @@ const fallbackRepos = [
     description: 'Ambiente interativo e biblioteca para simulação, minimização e equivalência de Autômatos Finitos (DFA/NFA) e Teoria da Computação.',
     language: 'Haskell',
     html_url: 'https://github.com/vimi-tt/Automato-Playground',
-    stargazers_count: 2,
-    forks_count: 0,
-    archived: false
-  },
-  {
-    name: 'vimi-tt.github.io',
-    description: 'Portfólio cibernético neo-brutalista de alto contraste com tipografia superdimensionada e blocos edge-to-edge.',
-    language: 'Astro',
-    html_url: 'https://github.com/vimi-tt/vimi-tt.github.io',
-    stargazers_count: 1,
+    stargazers_count: 0,
     forks_count: 0,
     archived: false
   }
@@ -56,15 +47,17 @@ try {
   console.error("Error fetching repos:", e);
 }
 
-const validRepos = repos.filter((repo: any) => !repo.fork && !repo.message);
+const validRepos = Array.isArray(repos) ? repos.filter((repo: any) => !repo.fork && !repo.message) : [];
 let finalRepos: any[] = [];
 
 if (validRepos.length > 0) {
-  const pinnedRepos = validRepos.filter((repo: any) => pinnedReposNames.includes(repo.name));
-  const otherRepos = validRepos.filter((repo: any) => !pinnedReposNames.includes(repo.name));
-  
-  pinnedRepos.sort((a: any, b: any) => pinnedReposNames.indexOf(a.name) - pinnedReposNames.indexOf(b.name));
-  finalRepos = [...pinnedRepos, ...otherRepos].slice(0, 6);
+  finalRepos = visibleReposNames
+    .map((name) => {
+      const fromApi = validRepos.find((repo: any) => repo.name.toLowerCase() === name.toLowerCase());
+      if (fromApi) return fromApi;
+      return fallbackRepos.find((repo) => repo.name.toLowerCase() === name.toLowerCase());
+    })
+    .filter(Boolean);
 } else {
   finalRepos = fallbackRepos;
 }
