@@ -6,39 +6,31 @@ interface Props {
   description?: string;
 }
 
-const { 
-  title = "José Vitor Diniz Miranda | Developer",
-  description = "Portfólio de José Vitor (vimi) - Graduando em Ciência da Computação pela UFCG (Campus Sede)." 
+const {
+  title = "José Vitor Diniz Miranda | Engenheiro de Software",
+  description = "Portfólio de José Vitor Diniz Miranda (vimi-tt) — Software nativo Android, sistemas em Rust, Haskell e notas técnicas."
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>{title}</title>
-  
-  <!-- Fontes: Space Grotesk (Display), Instrument Serif (Italic Accent), JetBrains Mono (Body/Tags) -->
+
+  <!-- Fontes: Archivo (Display), Manrope (Corpo), JetBrains Mono (Metadados e Código) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-[#0F0F0F] text-[#F3F3F3] antialiased relative min-h-screen overflow-x-hidden font-mono">
-  
-  <!-- Textura de Ruído Analógico (Noise Texture Overlay) -->
-  <div class="noise-overlay" aria-hidden="true"></div>
+<body class="bg-[#F4F4F0] text-[#111214] antialiased relative min-h-screen overflow-x-hidden font-sans">
 
-  <!-- Barra de Telemetria de Scroll -->
-  <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-[#BDB2FF] z-50 w-0 pointer-events-none transition-all duration-75"></div>
+  <!-- Barra de progresso de leitura -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-[#2B35AF] z-50 w-0 pointer-events-none transition-all duration-75" aria-hidden="true"></div>
 
-  <!-- Custom Cursor Neo-Brutalista com LERP -->
-  <div id="cursor-dot" aria-hidden="true"></div>
-  <div id="cursor-ring" aria-hidden="true"></div>
-
-  <!-- Conteúdo Principal -->
   <div class="relative z-10 flex flex-col min-h-screen">
     <slot />
   </div>
@@ -49,104 +41,39 @@ const {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ==========================================================================
-       1. CUSTOM CURSOR COM LERP
-       ========================================================================== */
-    const isFinePointer = window.matchMedia('(pointer: fine)').matches;
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
+    const initScrollTelemetry = () => {
+      const scrollProgressBar = document.getElementById('scroll-progress');
+      if (!scrollProgressBar) return;
 
-    if (isFinePointer && dot && ring) {
-      let mouseX = -100;
-      let mouseY = -100;
-      let ringX = -100;
-      let ringY = -100;
-      const lerpFactor = 0.18;
-
-      window.addEventListener('pointermove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        dot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
+      window.addEventListener('scroll', () => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+        scrollProgressBar.style.width = `${progress}%`;
       }, { passive: true });
+    };
 
-      const renderCursor = () => {
-        ringX += (mouseX - ringX) * lerpFactor;
-        ringY += (mouseY - ringY) * lerpFactor;
-        ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
-        requestAnimationFrame(renderCursor);
-      };
-      requestAnimationFrame(renderCursor);
+    const initArchitecturalMotion = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      const updateInteractiveTargets = () => {
-        const targets = document.querySelectorAll('a, button, [data-magnetic], input, textarea');
-        targets.forEach(el => {
-          el.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
-          el.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
-        });
-      };
-      updateInteractiveTargets();
-
-      window.addEventListener('mousedown', () => ring.classList.add('cursor-clicking'));
-      window.addEventListener('mouseup', () => ring.classList.remove('cursor-clicking'));
-    } else {
-      if (dot) dot.style.display = 'none';
-      if (ring) ring.style.display = 'none';
-    }
-
-    /* ==========================================================================
-       2. BOTÕES MAGNÉTICOS (MAGNETIC SPRING)
-       ========================================================================== */
-    const initMagneticButtons = () => {
-      if (!window.matchMedia('(pointer: fine)').matches) return;
-      const magneticItems = document.querySelectorAll<HTMLElement>('[data-magnetic]');
-      
-      magneticItems.forEach((btn) => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + rect.height / 2;
-          const deltaX = (e.clientX - centerX) * 0.32;
-          const deltaY = (e.clientY - centerY) * 0.32;
-
-          gsap.to(btn, {
-            x: deltaX,
-            y: deltaY,
-            duration: 0.3,
-            ease: 'power2.out',
-            overwrite: 'auto'
-          });
-        });
-
-        btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, {
-            x: 0,
-            y: 0,
-            duration: 0.6,
-            ease: 'elastic.out(1, 0.4)',
-            overwrite: 'auto'
-          });
+      const plates = document.querySelectorAll<HTMLElement>('[data-reveal-plate]');
+      plates.forEach((plate) => {
+        gsap.from(plate, {
+          y: 18,
+          duration: 0.7,
+          ease: 'expo.out',
+          clearProps: 'transform',
+          scrollTrigger: {
+            trigger: plate,
+            start: 'top 88%',
+            once: true
+          }
         });
       });
     };
 
-    /* ==========================================================================
-       3. TELEMETRIA DE SCROLL
-       ========================================================================== */
-    const initScrollTelemetry = () => {
-      const scrollProgressBar = document.getElementById('scroll-progress');
-      if (scrollProgressBar) {
-        window.addEventListener('scroll', () => {
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          const currentScroll = window.scrollY;
-          const progress = maxScroll > 0 ? (currentScroll / maxScroll) * 100 : 0;
-          scrollProgressBar.style.width = `${progress}%`;
-        }, { passive: true });
-      }
-    };
-
     document.addEventListener('DOMContentLoaded', () => {
-      initMagneticButtons();
       initScrollTelemetry();
+      initArchitecturalMotion();
     });
   </script>
 </body>

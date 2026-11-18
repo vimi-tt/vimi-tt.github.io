@@ -2,163 +2,86 @@
 
 @layer base {
   :root {
-    --bg-primary: #0F0F0F;
-    --text-primary: #F3F3F3;
-    --accent-color: #BDB2FF;
-    --card-bg-1: #6B44FF;
-    --card-bg-2: #00B4D8;
-    --card-bg-3: #2A6F97;
-    --card-bg-4: #E63946;
-    --card-bg-5: #059669;
-    --card-bg-6: #7209B7;
+    --bg-paper: #F4F4F0;
+    --bg-surface: #ECECE6;
+    --ink-primary: #111214;
+    --ink-secondary: #4B4F58;
+    --ink-muted: #6C707A;
+    --border-hairline: #D4D5CF;
+    --border-strong: #111214;
+    --accent-cobalt: #2B35AF;
+    --accent-cobalt-hover: #1E268A;
+    --plate-obsidian: #131418;
+    --plate-border: #2A2C34;
+    --plate-ink: #F4F4F0;
+    --plate-muted: #A4A8B3;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--bg-paper);
+    color: var(--ink-primary);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
-  }
-
-  /* Esconde o cursor padrão em ponteiros precisos */
-  @media (pointer: fine) {
-    *, *::before, *::after {
-      cursor: none !important;
-    }
   }
 
   body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    background-color: var(--bg-paper);
+    color: var(--ink-primary);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
-    line-height: 1.5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: var(--accent-color);
-    color: #000;
+    background: var(--accent-cobalt);
+    color: var(--bg-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-cobalt);
+    outline-offset: 2px;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-paper);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #B8B9B2;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-secondary);
   }
 }
 
-/* Tipografia */
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Archivo', sans-serif;
 }
 
-.font-serif-italic {
-  font-family: 'Instrument Serif', 'Playfair Display', serif;
-  font-style: italic;
+.font-sans {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Texto Vazado (Text Stroke) */
-.text-stroke-accent {
-  -webkit-text-stroke: 1.5px var(--accent-color);
-  color: transparent;
-}
-
-@media (min-width: 768px) {
-  .text-stroke-accent {
-    -webkit-text-stroke: 2px var(--accent-color);
-  }
-}
-
-.text-stroke-white {
-  -webkit-text-stroke: 1.5px #F3F3F3;
-  color: transparent;
-}
-
-@media (min-width: 768px) {
-  .text-stroke-white {
-    -webkit-text-stroke: 2px #F3F3F3;
-  }
-}
-
-/* Overlay de Ruído Analógico (Noise Texture via SVG) */
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9990;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* Linha Ondulada Repetível */
-.wavy-line-border {
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='32' viewBox='0 0 16 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0 C14 8, 2 8, 8 16 C14 24, 2 24, 8 32' stroke='%23BDB2FF' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-  background-repeat: repeat-y;
-  background-position: center;
-}
-
-/* Painéis Neo-Brutalistas / Alto Contraste */
-.brutalist-panel {
-  background: #0F0F0F;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.brutalist-panel:hover {
-  border-color: var(--accent-color);
-}
-
-/* Custom Cursor Neo-Brutalista com LERP */
-#cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent-color);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translate3d(-100px, -100px, 0);
-  transition: width 0.15s ease, height 0.15s ease;
-  mix-blend-mode: difference;
-}
-
-#cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  margin-top: -16px;
-  margin-left: -16px;
-  border: 1.5px solid var(--accent-color);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate3d(-100px, -100px, 0);
-  transition: width 0.2s ease, height 0.2s ease, margin 0.2s ease;
-  mix-blend-mode: difference;
-  will-change: transform;
-}
-
-#cursor-ring.cursor-hover {
-  width: 52px;
-  height: 52px;
-  margin-top: -26px;
-  margin-left: -26px;
-  background-color: rgba(189, 178, 255, 0.2);
-  border-color: var(--accent-color);
-}
-
-#cursor-ring.cursor-clicking {
-  transform: scale(0.85);
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Estilos de Tipografia para Conteúdo Markdown do Blog */
 .markdown-content {
-  color: rgba(243, 243, 243, 0.9);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem;
+  color: var(--ink-primary);
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.05rem;
   line-height: 1.8;
 }
 
@@ -166,66 +89,65 @@
 .markdown-content h2,
 .markdown-content h3,
 .markdown-content h4 {
-  font-family: 'Space Grotesk', sans-serif;
-  color: #F3F3F3;
-  letter-spacing: -0.02em;
+  font-family: 'Archivo', sans-serif;
+  color: var(--ink-primary);
+  letter-spacing: -0.025em;
 }
 
 .markdown-content h1 {
   font-size: 2.25rem;
-  font-weight: 900;
+  font-weight: 800;
   margin-top: 2.5rem;
   margin-bottom: 1.25rem;
 }
 
 .markdown-content h2 {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 800;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-hairline);
 }
 
 .markdown-content h3 {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  color: #BDB2FF;
+  color: var(--accent-cobalt);
 }
 
 .markdown-content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 }
 
 .markdown-content a {
-  color: #BDB2FF;
+  color: var(--accent-cobalt);
   text-decoration: underline;
   text-underline-offset: 4px;
   transition: color 0.15s ease;
 }
 
 .markdown-content a:hover {
-  color: #FFFFFF;
+  color: var(--ink-primary);
 }
 
 .markdown-content strong {
-  color: #FFFFFF;
+  color: var(--ink-primary);
   font-weight: 700;
 }
 
 .markdown-content ul {
   list-style-type: disc;
   padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 }
 
 .markdown-content ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 }
 
 .markdown-content li {
@@ -234,26 +156,26 @@
 }
 
 .markdown-content blockquote {
-  border-left: 3px solid #BDB2FF;
-  background-color: rgba(189, 178, 255, 0.04);
-  padding: 0.85rem 1.25rem;
+  border-left: 1px solid var(--accent-cobalt);
+  background-color: var(--bg-surface);
+  padding: 0.9rem 1.25rem;
   margin: 1.75rem 0;
-  font-style: italic;
-  color: rgba(243, 243, 243, 0.85);
+  color: var(--ink-secondary);
 }
 
 .markdown-content code:not(pre code) {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.875em;
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.85em;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
   padding: 0.15rem 0.4rem;
-  color: #BDB2FF;
+  color: var(--ink-primary);
 }
 
 .markdown-content pre {
-  background-color: #050505 !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--plate-obsidian) !important;
+  color: var(--plate-ink);
+  border: 1px solid var(--plate-border);
   padding: 1.25rem;
   overflow-x: auto;
   margin: 1.75rem 0;
@@ -272,7 +194,7 @@
 
 .markdown-content hr {
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid var(--border-hairline);
   margin: 2.5rem 0;
 }
 
@@ -280,20 +202,26 @@
   width: 100%;
   border-collapse: collapse;
   margin: 1.75rem 0;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 .markdown-content th {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-hairline);
+  background-color: var(--bg-surface);
   padding: 0.75rem;
   text-align: left;
   font-weight: 700;
-  color: #BDB2FF;
+  color: var(--ink-primary);
 }
 
 .markdown-content td {
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--border-hairline);
   padding: 0.75rem;
-  color: rgba(243, 243, 243, 0.85);
+  color: var(--ink-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

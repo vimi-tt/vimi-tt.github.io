@@ -1,47 +1,42 @@
 ---
-// Navbar Component - High Contrast Neo-Brutalist Header
+// Header - Barra de navegação arquitetônica
 ---
 
-<header class="sticky top-0 z-40 w-full bg-[#0F0F0F]/90 backdrop-blur-md border-b border-white/20 transition-all duration-200">
+<header class="sticky top-0 z-40 w-full bg-[#F4F4F0]/92 backdrop-blur-md border-b border-[#D4D5CF]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      
-      <!-- Logo / Nome à Esquerda na Cor de Destaque Lavanda -->
-      <a href="/#hero" class="flex items-center gap-2 group" data-magnetic>
-        <span class="font-display font-black text-xl sm:text-2xl tracking-tighter text-[#BDB2FF] group-hover:opacity-90 transition-opacity">
-          VITOR MIRANDA
+    <div class="flex items-center justify-between h-14 sm:h-20 gap-3">
+
+      <a href="/#hero" class="flex items-center gap-2 sm:gap-3 group shrink-0">
+        <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#2B35AF] shrink-0 transition-transform duration-200 group-hover:scale-110" aria-hidden="true"></span>
+        <span class="font-display font-black text-sm sm:text-xl tracking-[-0.03em] text-[#111214] uppercase whitespace-nowrap">
+          Vitor Miranda
         </span>
       </a>
 
-      <!-- Links de Navegação Pequenos e Monoespaçados -->
-      <nav class="flex items-center gap-4 sm:gap-8 font-mono text-xs sm:text-sm tracking-wider">
-        <a 
-          href="/#projetos" 
-          data-magnetic 
-          class="text-[#F3F3F3]/80 hover:text-[#BDB2FF] transition-colors"
+      <nav aria-label="Navegação principal" class="flex items-center gap-3 sm:gap-8 text-xs sm:text-sm font-medium text-[#4B4F58]">
+        <a
+          href="/#projetos"
+          class="hover:text-[#111214] transition-colors py-1 whitespace-nowrap"
         >
-          01/WORK
+          Projetos
         </a>
-        <a 
-          href="/#habilidades" 
-          data-magnetic 
-          class="text-[#F3F3F3]/80 hover:text-[#BDB2FF] transition-colors"
+        <a
+          href="/#habilidades"
+          class="hover:text-[#111214] transition-colors py-1 whitespace-nowrap"
         >
-          02/STACK
+          Stack
         </a>
-        <a 
-          href="/blog" 
-          data-magnetic 
-          class="text-[#F3F3F3]/80 hover:text-[#BDB2FF] transition-colors"
+        <a
+          href="/blog"
+          class="hover:text-[#111214] transition-colors py-1 whitespace-nowrap"
         >
-          03/BLOG
+          Blog
         </a>
-        <a 
-          href="/#contato" 
-          data-magnetic 
-          class="text-[#F3F3F3]/80 hover:text-[#BDB2FF] transition-colors"
+        <a
+          href="/#contato"
+          class="hover:text-[#111214] transition-colors py-1 whitespace-nowrap"
         >
-          04/CONTACT
+          Contato
         </a>
       </nav>
 

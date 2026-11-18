@@ -1,125 +1,126 @@
 ---
-// Hero Section - High Contrast Neo-Brutalist Layout with Hybrid Typography
+// Hero - Monografia arquitetônica com identidade e acesso direto aos lançamentos recentes
 ---
 
-<section id="hero" class="relative pt-16 pb-16 md:pt-24 md:pb-24 border-b border-white/20">
+<section id="hero" class="relative border-b border-[#D4D5CF]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Tipografia Híbrida (Títulos Grandes) -->
-    <div class="mb-10 sm:mb-14">
-      <div class="flex flex-wrap items-baseline gap-x-3 sm:gap-x-5 gap-y-1 font-display tracking-tight leading-none mb-3">
-        <span class="font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[#F3F3F3]">
-          BUILDING
-        </span>
-        <span class="font-serif-italic text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-[#BDB2FF] self-end normal-case font-normal">
-          random digital
-        </span>
-        <span class="font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-stroke-accent">
-          STUFF.
-        </span>
+    <div class="grid grid-cols-1 lg:grid-cols-12 border-x border-[#D4D5CF]">
+
+      <!-- Coluna Principal (Esquerda) -->
+      <div class="lg:col-span-8 p-6 sm:p-10 lg:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#D4D5CF]">
+        <div>
+          <h1 class="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] text-[#111214] tracking-[-0.035em] leading-[1.02] max-w-3xl text-balance">
+            Software nativo, sistemas em Rust e computação formal.
+          </h1>
+
+          <p class="mt-6 text-base sm:text-lg text-[#4B4F58] max-w-2xl leading-relaxed">
+            Sou <strong class="text-[#111214] font-semibold">José Vitor Diniz Miranda</strong>, graduando em Ciência da Computação pela UFCG. Projeto e construo aplicações Android em Kotlin e Jetpack Compose, ferramentas de sistema para Linux e simuladores formais.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3.5">
+            <a
+              href="#projetos"
+              class="px-6 py-3.5 bg-[#111214] hover:bg-[#2B35AF] text-[#F4F4F0] text-sm font-semibold tracking-tight transition-colors inline-flex items-center gap-2.5"
+            >
+              <span>Explorar projetos</span>
+              <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M8 3v10M4 9l4 4 4-4" stroke-linecap="square" />
+              </svg>
+            </a>
+
+            <a
+              href="https://github.com/vimi-tt"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-6 py-3.5 border border-[#111214] hover:bg-[#111214] hover:text-[#F4F4F0] text-[#111214] text-sm font-semibold tracking-tight transition-colors inline-flex items-center gap-2"
+            >
+              <span>GitHub @vimi-tt</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10" stroke-linecap="square" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Faixa inferior: Projetos recentes em destaque -->
+        <div class="mt-12 pt-6 border-t border-[#D4D5CF] grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a href="#projeto-overview" class="group p-4 bg-[#ECECE6]/70 hover:bg-[#131418] hover:text-[#F4F4F0] border border-[#D4D5CF] hover:border-[#131418] transition-colors flex items-center justify-between gap-3">
+            <div>
+              <div class="font-mono text-[11px] uppercase tracking-wider text-[#2B35AF] group-hover:text-[#A4A8B3]">
+                Kotlin · Android 12+
+              </div>
+              <div class="font-display font-bold text-base sm:text-lg tracking-tight mt-0.5">
+                Overview
+              </div>
+            </div>
+            <svg class="w-4 h-4 shrink-0 text-[#4B4F58] group-hover:text-[#F4F4F0] transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="square" />
+            </svg>
+          </a>
+
+          <a href="#projeto-verso" class="group p-4 bg-[#ECECE6]/70 hover:bg-[#131418] hover:text-[#F4F4F0] border border-[#D4D5CF] hover:border-[#131418] transition-colors flex items-center justify-between gap-3">
+            <div>
+              <div class="font-mono text-[11px] uppercase tracking-wider text-[#2B35AF] group-hover:text-[#A4A8B3]">
+                Kotlin · Compose
+              </div>
+              <div class="font-display font-bold text-base sm:text-lg tracking-tight mt-0.5">
+                Verso
+              </div>
+            </div>
+            <svg class="w-4 h-4 shrink-0 text-[#4B4F58] group-hover:text-[#F4F4F0] transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="square" />
+            </svg>
+          </a>
+
+          <a href="#projeto-flicker" class="group p-4 bg-[#ECECE6]/70 hover:bg-[#131418] hover:text-[#F4F4F0] border border-[#D4D5CF] hover:border-[#131418] transition-colors flex items-center justify-between gap-3">
+            <div>
+              <div class="font-mono text-[11px] uppercase tracking-wider text-[#2B35AF] group-hover:text-[#A4A8B3]">
+                Rust · Linux
+              </div>
+              <div class="font-display font-bold text-base sm:text-lg tracking-tight mt-0.5">
+                Flicker
+              </div>
+            </div>
+            <svg class="w-4 h-4 shrink-0 text-[#4B4F58] group-hover:text-[#F4F4F0] transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="square" />
+            </svg>
+          </a>
+        </div>
       </div>
 
-      <h1 class="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#F3F3F3] uppercase tracking-tight mt-4">
-        José Vitor Diniz Miranda
-      </h1>
-
-      <p class="text-sm sm:text-base md:text-lg font-mono text-[#F3F3F3]/90 mt-2 max-w-2xl leading-relaxed">
-        Graduando em Ciência da Computação pela UFCG (Campus Sede).
-      </p>
-    </div>
-
-    <!-- Grade Principal: Bloco de Identidade + Linha Ondulada + Stack Tags -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      
-      <!-- Bloco de Identidade (Avatar com Borda Simples de 2px e Linha Ondulada Lateral) -->
-      <div class="lg:col-span-5 flex items-stretch gap-4 sm:gap-6">
-        
-        <!-- Container do Avatar -->
-        <div class="flex-1 flex flex-col justify-between p-6 bg-[#0F0F0F] border border-white/20">
-          <div class="relative w-full aspect-square max-w-[280px] mx-auto mb-6 border-2 border-[#BDB2FF] overflow-hidden bg-black">
-            <img 
-              src="https://github.com/vimi-tt.png" 
-              alt="José Vitor Diniz Miranda" 
-              class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-300"
+      <!-- Coluna de Identidade (Direita) -->
+      <div class="lg:col-span-4 p-6 sm:p-10 flex flex-col justify-between bg-[#ECECE6]/45">
+        <div class="border border-[#D4D5CF] bg-[#F4F4F0] p-3">
+          <div class="aspect-square w-full overflow-hidden bg-[#131418] text-[#F4F4F0]">
+            <img
+              src="/avatar.png"
+              alt="Retrato de José Vitor Diniz Miranda"
+              class="w-full h-full object-cover grayscale contrast-115 hover:grayscale-0 transition-all duration-500"
               loading="eager"
             />
           </div>
-
-          <div class="border-t border-white/20 pt-4 flex items-center justify-between text-xs font-mono">
-            <span class="text-[#BDB2FF] font-bold">@vimi-tt</span>
-            <span class="text-white/60">UFCG / CG-PB</span>
-          </div>
         </div>
 
-        <!-- Linha Ondulada Lateral Renderizada no Eixo Y -->
-        <div class="w-4 sm:w-6 wavy-line-border opacity-90 shrink-0 self-stretch" aria-hidden="true"></div>
-      </div>
-
-      <!-- Tags de Stack / Identidade (Caixas Empilhadas em CSS Grid) -->
-      <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
-        
-        <div class="space-y-2.5">
-          <div class="text-xs font-mono text-[#BDB2FF] uppercase tracking-widest mb-1">
-            // IDENTITY_&amp;_STACK_MATRIX
+        <dl class="mt-6 space-y-3 text-sm border-t border-[#D4D5CF] pt-5">
+          <div class="flex items-baseline justify-between gap-4">
+            <dt class="text-[#6C707A] font-mono text-xs uppercase tracking-wider">Handle</dt>
+            <dd class="font-mono text-xs font-semibold text-[#111214]">@vimi-tt</dd>
           </div>
-
-          <!-- Caixa 1 -->
-          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
-            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">RUST</span>
-            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">MEMORY_SAFE / SYSTEMS</span>
+          <div class="flex items-baseline justify-between gap-4">
+            <dt class="text-[#6C707A] font-mono text-xs uppercase tracking-wider">Formação</dt>
+            <dd class="text-xs font-semibold text-[#111214] text-right">Ciência da Computação · UFCG</dd>
           </div>
-
-          <!-- Caixa 2 -->
-          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
-            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">C / C#</span>
-            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">POSIX / LOW_LEVEL</span>
+          <div class="flex items-baseline justify-between gap-4">
+            <dt class="text-[#6C707A] font-mono text-xs uppercase tracking-wider">Base</dt>
+            <dd class="text-xs font-medium text-[#4B4F58] text-right">Campina Grande, PB</dd>
           </div>
-
-          <!-- Caixa 3 -->
-          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
-            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">HASKELL</span>
-            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">FUNCTIONAL_PURE</span>
+          <div class="flex items-baseline justify-between gap-4">
+            <dt class="text-[#6C707A] font-mono text-xs uppercase tracking-wider">Foco</dt>
+            <dd class="font-mono text-xs font-medium text-[#2B35AF] text-right">Kotlin · Rust · Haskell</dd>
           </div>
-
-          <!-- Caixa 4 -->
-          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
-            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">UGRAD CS</span>
-            <span class="col-span-6 font-mono text-xs text-right text-[#BDB2FF] uppercase font-bold">UFCG CAMPUS SEDE</span>
-          </div>
-
-          <!-- Caixa 5 -->
-          <div class="p-3.5 sm:p-4 border border-white/30 bg-[#0F0F0F] hover:border-[#BDB2FF] transition-colors grid grid-cols-12 items-center">
-            <span class="col-span-6 font-display font-bold text-sm sm:text-base text-white tracking-wide">LINUX ENV</span>
-            <span class="col-span-6 font-mono text-xs text-right text-white/60 uppercase">TERMINAL / BASH / ZED</span>
-          </div>
-        </div>
-
-        <!-- Botões de Ação de Alto Contraste -->
-        <div class="pt-4 flex flex-wrap items-center gap-4">
-          <a 
-            href="#projetos" 
-            data-magnetic
-            class="px-6 py-3 bg-[#BDB2FF] hover:bg-[#a594fd] text-black font-mono font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors inline-flex items-center gap-2"
-          >
-            <span>VER_PROJETOS</span>
-            <span>&darr;</span>
-          </a>
-
-          <a 
-            href="https://github.com/vimi-tt" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            data-magnetic
-            class="px-6 py-3 border border-white/30 hover:border-[#BDB2FF] hover:text-[#BDB2FF] text-[#F3F3F3] font-mono font-medium text-xs sm:text-sm tracking-wider uppercase transition-colors inline-flex items-center gap-2"
-          >
-            <span>GITHUB_PROFILE</span>
-            <span>&nearr;</span>
-          </a>
-        </div>
-
+        </dl>
       </div>
 
     </div>
-
   </div>
 </section>

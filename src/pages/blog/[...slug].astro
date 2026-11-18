@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -27,9 +28,9 @@ export async function getStaticPaths() {
               description: frontmatter.description || '',
               pubDate: frontmatter.pubDate ? new Date(frontmatter.pubDate) : new Date(),
               tags: frontmatter.tags || [],
-              draft: frontmatter.draft || false,
+              draft: frontmatter.draft || false
             },
-            ContentComponent: mod.Content || mod.default,
+            ContentComponent: mod.Content || mod.default
           }
         }
       };
@@ -38,7 +39,7 @@ export async function getStaticPaths() {
 
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post }
   }));
 }
 
@@ -50,103 +51,82 @@ if (!RenderedContent) {
   RenderedContent = rendered.Content;
 }
 
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('pt-BR', {
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: 'long',
     year: 'numeric'
   });
-};
 ---
 
 <Layout title={`${post.data.title} | Vitor Miranda`} description={post.data.description}>
   <Header />
 
   <main class="flex-grow">
-    <!-- Cabeçalho do Artigo -->
-    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-20">
-      
-      <!-- Navegação de Retorno -->
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20">
+
       <div class="mb-8">
-        <a 
-          href="/blog" 
-          data-magnetic
-          class="inline-flex items-center gap-2 font-mono text-xs sm:text-sm uppercase tracking-wider text-white/70 hover:text-[#BDB2FF] transition-colors"
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-2 text-xs font-semibold text-[#4B4F58] hover:text-[#2B35AF] transition-colors"
         >
-          <span>&larr;</span>
-          <span>VOLTAR_PARA_O_BLOG</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path d="M13 8H3M7 4L3 8l4 4" stroke-linecap="square" />
+          </svg>
+          <span>Voltar para Notas Técnicas</span>
         </a>
       </div>
 
-      <!-- Metadados -->
-      <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-white/60 mb-4">
+      <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-[#6C707A] mb-4">
         <time datetime={post.data.pubDate.toISOString()}>
           {formatDate(post.data.pubDate)}
         </time>
         <span>&bull;</span>
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map((tag: string) => (
-            <span class="px-2 py-0.5 text-[11px] font-mono uppercase bg-white/5 border border-white/10 text-[#BDB2FF]">
+            <span class="px-2 py-0.5 text-[11px] bg-[#ECECE6] border border-[#D4D5CF] text-[#4B4F58]">
               #{tag}
             </span>
           ))}
         </div>
       </div>
 
-      <!-- Título Principal -->
-      <h1 class="font-display font-black text-3xl sm:text-5xl md:text-6xl text-[#F3F3F3] tracking-tight mb-6">
+      <h1 class="font-display font-black text-3xl sm:text-5xl text-[#111214] tracking-[-0.03em] mb-6">
         {post.data.title}
       </h1>
 
-      <!-- Descrição / Subtítulo -->
       {post.data.description && (
-        <p class="font-mono text-base sm:text-lg text-white/80 leading-relaxed border-l-2 border-[#BDB2FF] pl-4 py-1 mb-10 bg-white/[0.02]">
+        <p class="text-base sm:text-lg text-[#4B4F58] leading-relaxed border-l border-[#2B35AF] pl-4 py-1 mb-10">
           {post.data.description}
         </p>
       )}
 
-      <hr class="border-white/20 mb-12" />
+      <hr class="border-[#D4D5CF] mb-12" />
 
-      <!-- Conteúdo Markdown Renderizado -->
       <div class="markdown-content">
         <RenderedContent />
       </div>
 
-      <!-- Rodapé do Artigo -->
-      <div class="mt-16 pt-8 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <a 
-          href="/blog" 
-          data-magnetic
-          class="font-mono text-xs uppercase tracking-wider text-white/70 hover:text-[#BDB2FF] transition-colors inline-flex items-center gap-2"
+      <div class="mt-16 pt-8 border-t border-[#D4D5CF] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <a
+          href="/blog"
+          class="text-xs font-semibold text-[#4B4F58] hover:text-[#2B35AF] transition-colors inline-flex items-center gap-2"
         >
-          <span>&larr;</span>
-          <span>TODOS_OS_ARTIGOS</span>
+          <span>&larr; Todos os artigos</span>
         </a>
 
-        <a 
-          href="https://github.com/vimi-tt" 
+        <a
+          href="https://github.com/vimi-tt"
           target="_blank"
           rel="noopener noreferrer"
-          data-magnetic
-          class="font-mono text-xs uppercase tracking-wider text-[#BDB2FF] hover:text-white transition-colors inline-flex items-center gap-1.5"
+          class="text-xs font-semibold text-[#111214] hover:text-[#2B35AF] transition-colors inline-flex items-center gap-1.5"
         >
-          <span>AUTOR: VITOR MIRANDA</span>
+          <span>Vitor Miranda no GitHub</span>
           <span>&nearr;</span>
         </a>
       </div>
     </article>
   </main>
 
-  <footer class="w-full border-t border-white/20 bg-[#0F0F0F] py-8 font-mono text-xs text-white/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2 text-white/80">
-        <span class="w-2 h-2 rounded-full bg-[#BDB2FF]"></span>
-        <span class="font-bold text-white uppercase tracking-wider">vimi-tt</span>
-      </div>
-
-      <div class="text-[11px] text-white/50 tracking-wider uppercase">
-        &copy; {new Date().getFullYear()} Vitor Miranda
-      </div>
-    </div>
-  </footer>
+  <Footer />
 </Layout>
